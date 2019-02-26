@@ -38,6 +38,7 @@ export class AngularFileUploaderComponent implements OnInit, OnChanges {
   uploadMsgClass: string;
   percentComplete: number;
   replaceTexts;
+  method: string='POST';
 
   constructor() {
     //console.log("id: ",this.id);
@@ -77,6 +78,7 @@ export class AngularFileUploaderComponent implements OnInit, OnChanges {
           ...this.config['replaceTexts']
         }
       }
+      this.method = this.config['method'] || 'POST';
 
       //console.log("config: ", this.config);
       //console.log(this.config["maxSize"]);
@@ -266,7 +268,7 @@ export class AngularFileUploaderComponent implements OnInit, OnChanges {
       //console.log(evnt);
     };
 
-    xhr.open("POST", this.uploadAPI, true);
+    xhr.open(this.method, this.uploadAPI, true);
     for (const key of Object.keys(this.headers)) {
       // Object.keys will give an Array of keys
       xhr.setRequestHeader(key, this.headers[key]);
